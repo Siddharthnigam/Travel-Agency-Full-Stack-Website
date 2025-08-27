@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+body {
+  background: #000;
+  color: white;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+/* Fan Carousel Custom Styles */
+.fan-carousel-stage {
+  --card-width: 260px;
+  --card-height: 380px;
+  --card-radius: 18px;
+  --transition-speed: 1200ms;
+  --easing: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --gap: 260px;
+  --lift: 24px;
+  --lift2: 44px;
+  --center-scale: 1.13;
+  --center-drop: 10px;
+}
+
+.fan-carousel-card {
+  transform-origin: 50% 60%;
+  will-change: transform, filter, opacity, box-shadow;
+  transition: transform var(--transition-speed) var(--easing),
+              filter var(--transition-speed) var(--easing),
+              box-shadow var(--transition-speed) var(--easing);
+}
+
+/* Card Position Styles */
+.fan-carousel-card[data-slot="center"] {
+  z-index: 60;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.35), 
+              0 10px 22px rgba(0, 0, 0, 0.25);
+  transform: translate(-50%, calc(-50% + var(--center-drop))) 
+             rotateZ(0deg) 
+             translateX(0) 
+             translateY(0) 
+             scale(var(--center-scale));
+}
+
+.fan-carousel-card[data-slot="left1"] {
+  z-index: 40;
+  transform: translate(-50%, -50%) 
+             rotateZ(-24deg) 
+             translateX(calc(-1 * var(--gap))) 
+             translateY(var(--lift)) 
+             scale(0.95);
+}
+
+.fan-carousel-card[data-slot="right1"] {
+  z-index: 40;
+  transform: translate(-50%, -50%) 
+             rotateZ(24deg) 
+             translateX(var(--gap)) 
+             translateY(var(--lift)) 
+             scale(0.95);
+}
+
+.fan-carousel-card[data-slot="left2"] {
+  z-index: 30;
+  transform: translate(-50%, -50%) 
+             rotateZ(-36deg) 
+             translateX(calc(-2 * var(--gap))) 
+             translateY(var(--lift2)) 
+             scale(0.9);
+}
+
+.fan-carousel-card[data-slot="right2"] {
+  z-index: 30;
+  transform: translate(-50%, -50%) 
+             rotateZ(36deg) 
+             translateX(calc(2 * var(--gap))) 
+             translateY(var(--lift2)) 
+             scale(0.9);
+}
+
+.fan-carousel-card[data-slot="park"] {
+  z-index: 10;
+  transform: translate(-50%, -50%) 
+             scale(0.001) 
+             rotateZ(0deg);
+}
+
+/* Image Filter Effects */
+.fan-carousel-card:not([data-slot="center"]) img {
+  filter: grayscale(1) contrast(0.9) brightness(0.9);
+  opacity: 0.75;
+}
+
+.fan-carousel-card[data-slot="center"] img {
+  filter: none;
+  opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .fan-carousel-stage {
+    --gap: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .fan-carousel-stage {
+    --gap: 160px;
+    --card-width: 220px;
+    --card-height: 320px;
+    height: 400px;
+  }
+  
+  .fan-carousel-card {
+    width: var(--card-width);
+    height: var(--card-height);
+  }
+}
+
+@media (max-width: 480px) {
+  .fan-carousel-stage {
+    --gap: 120px;
+    --card-width: 180px;
+    --card-height: 260px;
+    height: 320px;
+  }
+}
