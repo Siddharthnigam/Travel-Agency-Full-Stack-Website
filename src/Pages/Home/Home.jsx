@@ -2,6 +2,7 @@ import React from 'react'
 import Hero from './Hero'
 import Marquee from './Marquee'
 import Services from './TopTour'
+import Watsapp from './Watsappbot'
 import Think from './WhyUs'
 import OurServices from './OurSErvices'
 import OurJourney from './OurJourney'
@@ -12,6 +13,7 @@ function Home() {
         <div>
             <Hero />
             <Marquee />
+            <Watsapp />
             <Services />
             <Think />
             <OurServices />

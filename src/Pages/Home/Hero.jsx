@@ -4,8 +4,73 @@ import { gsap } from "gsap";
 const FanCards = () => {
   const stageRef = useRef(null);
   const timerRef = useRef(null);
+  const headingRef = useRef(null);
 
   useEffect(() => {
+    // Heading animation - words appear one by one
+    const headingAnimation = () => {
+      const headingContainer = headingRef.current;
+      if (!headingContainer) return;
+
+      // Split text into spans for individual word animation
+      const words = headingContainer.querySelectorAll('.word');
+      
+      // Set initial state - all words invisible
+      gsap.set(words, { opacity: 0, y: 30, scale: 0.8 });
+
+      // Create timeline for heading animation
+      const headingTl = gsap.timeline({ delay: 0.5 });
+      
+      // Animate words one by one
+      headingTl
+        .to(words[0], { // "Hello,"
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "back.out(1.7)"
+        })
+        .to(words[1], { // "Your"
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "back.out(1.7)"
+        }, "-=0.3")
+        .to(words[2], { // "Seamless" (highlighted)
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: "back.out(1.7)"
+        }, "-=0.2")
+        .to(words[3], { // "Travel"
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "back.out(1.7)"
+        }, "-=0.4")
+        .to(words[4], { // "Lifecycle"
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "back.out(1.7)"
+        }, "-=0.3")
+        .to(words[5], { // "Platform." (highlighted)
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: "back.out(1.7)"
+        }, "-=0.2");
+    };
+
+    // Start heading animation
+    headingAnimation();
+
+    // Existing carousel logic
     const stage = stageRef.current;
     if (!stage) return;
     
@@ -224,16 +289,24 @@ const FanCards = () => {
       stopTimer();
       observer.disconnect();
       gsap.killTweensOf(cards);
+      gsap.killTweensOf(".word"); // Clean up heading animations
     };
   }, []);
 
   return (
     <div className="w-full min-h-screen">
-      {/* Company Name - Top Left, Scrollable */}
-      <div className="absolute top-30 left-15 z-50">
-        <h2 className="text-[1.2rem] font-bold text-white bg-black/30 backdrop-blur-sm px-6">Hello, </h2>
-        <h1 className="text-[2.8rem] font-stretch-150% font-bold leading-tight text-white bg-black/30 backdrop-blur-sm px-6">
-        Your <span className="text-blue-500"> Seamless </span>Travel <br /> Lifecycle <span className="text-blue-500"> Platform.</span>
+      {/* Animated Company Name - Top Left */}
+      <div className="absolute top-30 left-15 z-50" ref={headingRef}>
+        <h2 className="text-[1.2rem] font-bold text-white bg-black/30 backdrop-blur-sm px-6 py-2 rounded-lg ">
+          <span className="word">Hello,</span>
+        </h2>
+        <h1 className="text-[2.8rem] font-stretch-150% font-bold leading-tight text-white bg-black/30 backdrop-blur-sm px-6 py-4 rounded-2xl">
+          <span className="word inline-block mr-3">Your</span>
+          <span className="word text-blue-500 inline-block mr-3">Seamless</span>
+          <span className="word inline-block mr-3">Travel</span>
+          <br />
+          <span className="word inline-block mr-3">Lifecycle</span>
+          <span className="word text-blue-500 inline-block">Platform.</span>
         </h1>
       </div>
 
