@@ -333,11 +333,16 @@ const FanCards = () => {
           ].map((card, idx) => (
             <div 
               key={idx}
-              className="absolute left-1/2 top-1/2 w-64 h-96 bg-black rounded-lg overflow-hidden shadow-2xl cursor-pointer"
+              className="absolute left-1/2 top-1/2 w-64 h-96 bg-black rounded-lg overflow-hidden cursor-pointer"
               style={{
                 transform: 'translate(-50%, -50%)',
                 transformOrigin: '50% 60%',
-                willChange: 'transform, opacity'
+                willChange: 'transform, opacity',
+                border: '2px solid transparent',
+                backgroundImage: 'linear-gradient(black, black), linear-gradient(135deg, #3b82f6, #ef4444)',
+                backgroundOrigin: 'border-box',
+                backgroundClip: 'content-box, border-box',
+                boxShadow: '0 8px 32px -4px rgba(59, 130, 246, 0.2), 0 8px 32px -4px rgba(239, 68, 68, 0.2)'
               }}
             >
               {card.badge && (
@@ -350,7 +355,8 @@ const FanCards = () => {
                 alt={card.title} 
                 className="w-full h-full object-cover" 
                 style={{
-                  willChange: 'filter, opacity'
+                  willChange: 'filter, opacity',
+                  boxShadow: '0px -19px 67px -27px rgba(255, 254, 254, 1)'
                 }}
               />
               
